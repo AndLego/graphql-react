@@ -1,12 +1,20 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_NUMBER } from "./persons/graphql-mutations";
+import { resultKeyNameFromField } from "@apollo/client/utilities";
 
 const PhoneForm = ({ notifyError }) => {
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
 
-  const [changeNumber] = useMutation(EDIT_NUMBER);
+  const [changeNumber, result] = useMutation(EDIT_NUMBER);
+
+  React.useEffect(() => {
+    if (result.data && result.data.editNumber === null) {
+      console.error("Person not found");
+      notifyError("Person not found");
+    }
+  }, [result.data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
