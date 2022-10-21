@@ -6,10 +6,16 @@ import { PersonForm } from "./PersonForm";
 import { usePersons } from "./persons/custom-hooks.js";
 import { Notify } from "./Notify";
 import { PhoneForm } from "./PhoneForm";
+import { LoginForm } from "./LoginForm";
+import { useApolloClient } from "@apollo/client";
 
 function App() {
   const { data, error, loading } = usePersons();
   const [errorMessage, setErrorMessage] = React.useState(null);
+  const [token, setToken] = React.useState(() =>
+    localStorage.getItem("phonenumbers-user-token")
+  );
+  const client = useApolloClient();
 
   if (error) return <span style="color: red">{error}</span>;
 
@@ -18,6 +24,12 @@ function App() {
     setTimeout(() => {
       setErrorMessage(null);
     }, 5000);
+  };
+
+  const logout = () => {
+    setToken(null);
+    localStorage.clear();
+    client.resetStore();
   };
 
   return (
@@ -29,8 +41,12 @@ function App() {
         </a>
       </div>
       {loading ? <p>Loading...</p> : <Persons persons={data?.allPersons} />}
-      <PhoneForm notifyError={notifyError} />
-      <PersonForm notifyError={notifyError} />
+      {token 
+      ? <button onClick={logout}>Log out</button>
+      : <LoginForm notifyError={notifyError} setToken={setToken} />
+      }
+      {token && <PhoneForm notifyError={notifyError} />}
+      {token && <PersonForm notifyError={notifyError} />}
     </div>
   );
 }

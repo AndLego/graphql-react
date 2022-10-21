@@ -11,9 +11,19 @@ const PersonForm = ({ notifyError }) => {
 
   //cada que se haga una mutacion, hasme un refetch de la query
   const [createPerson] = useMutation(CREATE_PERSON, {
-    refetchQueries: [{ query: ALL_PERSONS }],
     onError: (error) => {
       notifyError(error.graphQLErrors[0].message);
+    },
+    update: (store, response) => {
+     // refetchQueries: [{ query: ALL_PERSONS }],
+      const dataInStore = store.readQuery({ query: ALL_PERSONS });
+      store.writeQuery({
+        query: ALL_PERSONS,
+        data: {
+          ...dataInStore,
+          allPersons: [...dataInStore.allPersons, response.data.addPerson],
+        },
+      });
     },
   });
 
