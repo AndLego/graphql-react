@@ -39,8 +39,8 @@ const PersonForm = ({ notifyError }) => {
   };
 
   return (
-    <div>
-      <h2>Create new Person</h2>
+    <div className="data-container">
+      <h2>Add new Contact</h2>
       <form onSubmit={handleSubmit}>
         <input
           value={name}
@@ -66,7 +66,7 @@ const PersonForm = ({ notifyError }) => {
           placeholder="City"
           type="text"
         />
-        <button>Add Person</button>
+        <button>Add</button>
       </form>
     </div>
   );

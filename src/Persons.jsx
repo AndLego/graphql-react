@@ -49,6 +49,7 @@ const Persons = ({ persons }) => {
       <h2>Persons</h2>
       {persons.map((per) => (
         <div
+        className="person-data"
           key={per.name}
           onClick={() => {
             showPerson(per.name);

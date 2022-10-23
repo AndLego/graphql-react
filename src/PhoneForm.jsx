@@ -15,7 +15,7 @@ const PhoneForm = ({ notifyError }) => {
       notifyError("Person not found");
     }
   }, [result.data]);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -26,7 +26,7 @@ const PhoneForm = ({ notifyError }) => {
   };
 
   return (
-    <div>
+    <div className="data-container">
       <h2>Edit Phone Number</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -41,7 +41,7 @@ const PhoneForm = ({ notifyError }) => {
           placeholder="Phone"
           type="text"
         />
-        <button>Change Phone</button>
+        <button>Update</button>
       </form>
     </div>
   );

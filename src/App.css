@@ -17,6 +17,34 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.data-container form {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.data-container form input {
+  width: 88px;
+}
+.person-data {
+  width: 260px;
+  margin: 0 auto;
+}
+
+.person-data:hover {
+  cursor: pointer;
+  color: #242424;
+  background-color: rgba(255, 255, 255, 0.87);
+}
+
+.logOut {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border: 1px solid orangered;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

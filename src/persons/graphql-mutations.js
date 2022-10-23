@@ -28,3 +28,12 @@ export const EDIT_NUMBER = gql`
     }
   }
 `;
+
+export const REMOVE_PERSON = gql`
+mutation removeContact($name: String!){
+  deleteUser(name: $name){
+    name
+    id
+  }
+}
+`;

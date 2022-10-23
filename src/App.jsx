@@ -8,6 +8,7 @@ import { Notify } from "./Notify";
 import { PhoneForm } from "./PhoneForm";
 import { LoginForm } from "./LoginForm";
 import { useApolloClient } from "@apollo/client";
+import { RemoveForm } from "./RemoveForm";
 
 function App() {
   const { data, error, loading } = usePersons();
@@ -42,11 +43,12 @@ function App() {
       </div>
       {loading ? <p>Loading...</p> : <Persons persons={data?.allPersons} />}
       {token 
-      ? <button onClick={logout}>Log out</button>
+      ? <button className="logOut" onClick={logout}>Log out</button>
       : <LoginForm notifyError={notifyError} setToken={setToken} />
       }
-      {token && <PhoneForm notifyError={notifyError} />}
       {token && <PersonForm notifyError={notifyError} />}
+      {token && <PhoneForm notifyError={notifyError} />}
+      {token && <RemoveForm notifyError={notifyError} />}
     </div>
   );
 }
