@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/*"
+  to = "https://graphql-server0001.herokuapp.com/"
+  status = 200
+  force = true
