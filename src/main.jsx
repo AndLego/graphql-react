@@ -22,7 +22,7 @@ const client = new ApolloClient({
     headers: {
       authorization: getAuth(),
     },
-    uri: "http://localhost:4000/",
+    uri: "https://graphql-server0001.herokuapp.com/",
   }),
 });
 
