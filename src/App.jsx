@@ -9,6 +9,7 @@ import { PhoneForm } from "./PhoneForm";
 import { LoginForm } from "./LoginForm";
 import { useApolloClient } from "@apollo/client";
 import { RemoveForm } from "./RemoveForm";
+import { CreateForm } from "./CreateForm";
 
 function App() {
   const { data, error, loading } = usePersons();
@@ -46,6 +47,7 @@ function App() {
       ? <button className="logOut" onClick={logout}>Log out</button>
       : <LoginForm notifyError={notifyError} setToken={setToken} />
       }
+      {!token && <CreateForm notifyError={notifyError} />}
       {token && <PersonForm notifyError={notifyError} />}
       {token && <PhoneForm notifyError={notifyError} />}
       {token && <RemoveForm notifyError={notifyError} />}

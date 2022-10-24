@@ -1,34 +1,44 @@
-import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { LOGIN } from "./login/graphql-queries";
+import React from "react";
+import { CREATE_USER } from "./login/graphql-queries";
 
-const LoginForm = ({ notifyError, setToken }) => {
+const CreateForm = ({ notifyError }) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [login, result] = useMutation(LOGIN, {
+  const [trigger, setTrigger] = React.useState("");
+
+  const [createUser, result] = useMutation(CREATE_USER, {
     onError: (error) => {
       notifyError(error.graphQLErrors[0].message);
     },
+    onCompleted: () => {
+      setTrigger("User Created");
+    },
   });
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setTrigger("");
+    }, 5000);
+  }, [trigger]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    login({ variables: { username, password } });
-  };
+    createUser({ variables: { username, password } });
 
-  React.useEffect(() => {
-    if (result.data) {
-      const { value: token } = result.data.login;
-      setToken(token);
-      localStorage.setItem("phonenumbers-user-token", token);
-      window.location.reload()
-    }
-  }, [result.data]);
+    setUsername("");
+    setPassword("");
+  };
 
   return (
     <div className="data-login">
+      {trigger === "User Created" && <>
+      <div style={{ color: "greenyellow", position: "fixed", top: 0, width: "100%" }}>
+     User Created, you can log now
+    </div>
+      </>}
       <form onSubmit={handleSubmit}>
         <div>
           username
@@ -47,10 +57,10 @@ const LoginForm = ({ notifyError, setToken }) => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Create User</button>
       </form>
     </div>
   );
 };
 
-export { LoginForm };
+export { CreateForm };
